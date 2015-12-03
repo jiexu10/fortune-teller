@@ -9,9 +9,10 @@ $("#random-fortune").on("click", function(event) {
 
 // create a new fortune and update the page
 //
-$("form").on("submit", function(event) {
+$("#fortune-form").on("submit", function(event) {
   event.preventDefault();
-  var newFortuneContent = $('#fortune-content').val()
+  var newFortuneContent = $('#fortune-content').val();
+  // alert("yo");
 
   var request = $.ajax({
     method: "POST",
@@ -20,7 +21,13 @@ $("form").on("submit", function(event) {
   });
 
   request.success(function() {
-    $("ul.fortunes").append("<li>content: " + newFortuneContent + "</li>");
+    // var req = new XMLHttpRequest();
+    // req.open('POST', document.location, false);
+    // req.send(null);
+    // var headers = req.getAllResponseHeaders().toLowerCase();
+    // alert(headers);
+
+    $("ul.fortunes").append("<li>id: " + "content: " + newFortuneContent + "</li>");
     $('#fortune-content').val() = "";
   });
 });

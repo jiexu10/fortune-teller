@@ -28,10 +28,32 @@ get "/fortunes" do
 end
 
 post "/fortunes" do
-  if params[:content]
+  if !(params[:content].nil? || params[:content].empty?)
     Fortune.create(params[:content])
   end
   redirect to("/fortunes")
+end
+
+put "/fortunes/edit" do
+  fortune = Fortune.read(params[:id])
+  if fortune.nil?
+    status 404
+  else
+    Fortune.update(params[:id], params[:content])
+    status 204
+    redirect to("/fortunes")
+  end
+end
+
+delete "/fortunes/delete" do
+  fortune = Fortune.read(params[:id])
+  if fortune.nil?
+    status 404
+  else
+    Fortune.delete(params[:id])
+    status 204
+    redirect to("/fortunes")
+  end
 end
 
 
